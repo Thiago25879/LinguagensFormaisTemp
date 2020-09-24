@@ -18,45 +18,38 @@ public class Classe {
     private ArrayList<Character> terminais;   // "Terminais" contêm todos os simbolos terminais descritos pelo usuário | Todos os simbolos terminais digitados pelo usuário
     private ArrayList<String> regras;         // "Regras" Contêm uma lista de todas as regras do usuário, dividindo elas por posição da lista
     private char raiz;                        // "Raiz" é equivalente ao "Símbolo terminal", também enviado pelo usuário, o simbolo terminal é a "raiz" da gramática, podendo destrinchar em todos os terminais
-    private String matriz[][];                // 
+    private String matriz[][];                // Local que será utilizado para salvar as regras, basicamente uma formatação das regras recebidas pela lista de string em um formato utilizável
 
     public Classe(ArrayList<Character> variaveis, ArrayList<Character> terminais, ArrayList<String> regras, char raiz) {
-        this.variaveis = variaveis;
-        this.terminais = terminais;
-        this.regras = regras;
-        this.raiz = raiz;
-        boolean check = true;
-        for (Character temp : terminais) {
+        this.variaveis = variaveis;     //seta variaveis
+        this.terminais = terminais;     // seta terminais
+        this.regras = regras;           // seta regras
+        this.raiz = raiz;               // seta raiz
+        boolean check = true;           // variável auxiliar de teste
+        for (Character temp : terminais) {   //Vai checar se os terminais não estão contidos nas variáveis
             if (!variaveis.contains(temp)) {
                 check = false;
             }
         }
-        if (!check || !variaveis.contains(raiz) || terminais.contains(raiz) || !padraoRegras()) {
-            throw new IllegalArgumentException("Entrada inválida");
+        if (!check || !variaveis.contains(raiz) || terminais.contains(raiz) || !padraoRegras()) { //Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
+            throw new IllegalArgumentException("Entrada inválida");                               //terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
         }
     }
 
     //Feito por Thiago e Kelvin - 24/09 | 02:00 - 04:00
     //{S -> AA, S -> BA, A -> AB|BA|SA}
-    private boolean padraoRegras() {
-        for (String regra : regras) {
-            for (int x = 0; x < regra.length(); x++) {
-                regra = regra.replaceAll(" ", "").replaceAll("->", "").replaceAll("|", "");
-                if (!variaveis.contains(regra.charAt(x))) {
-                    return false;
-                }
-            }
-        }
-        int maior = 0, contador = 0;
+    private boolean padraoRegras() {       // Padrão esperado para as regras inseridas
         boolean test = true;
+        if (!checkRegrasSimb()) {
+            return false;
+        }
         ArrayList<String> lista = new ArrayList();
         while (test) {
             test = false;
             for (String regra : regras) {
                 if (regra.contains("|")) {
                     lista.add(regra.trim().substring(0, regra.indexOf("|")));
-                    regras.set(regras.indexOf(regra),regra.replace(regra.trim().substring(5, regra.indexOf("|") + 1), ""));
-                    
+                    regras.set(regras.indexOf(regra), regra.replace(regra.trim().substring(5, regra.indexOf("|") + 1), ""));
                     test = true;
                 }
             }
@@ -65,17 +58,37 @@ public class Classe {
         lista.sort(String.CASE_INSENSITIVE_ORDER);
         matriz = new String[lista.size()][2];
         regras = lista;
-        int x = 0;
+        matrizAdd();
+
+        return true;
+    }
+    // Kelvin | 06:00 - 06:20
+
+    private boolean checkRegrasSimb() { //Checa se as regras digitadas fazem sentido para os terminais/simbolos inseridos
         for (String regra : regras) {
-            if (regra.trim().substring(0, 1) != regra.trim().substring(5)) {
-                matriz[x][0] = regra.trim().substring(0, 1);
-                matriz[x][1] = regra.trim().substring(5);
-                x++;
+            for (int x = 0; x < regra.length(); x++) {
+                regra = regra.replaceAll(" ", "").replaceAll("->", "").replaceAll("|", "");
+                if (!variaveis.contains(regra.charAt(x))) {
+                    return false;
+                }
             }
         }
         return true;
     }
 
+    // Kelvin | 06:00 - 06:20
+    private void matrizAdd() { //Só adiciona à matriz regras que não façam referência a si mesma, como por exemplo C->C
+        int contaRegras = 0;
+        for (String regra : regras) {
+            if (regra.trim().substring(0, 1) != regra.trim().substring(5)) {
+                matriz[contaRegras][0] = regra.trim().substring(0, 1);
+                matriz[contaRegras][1] = regra.trim().substring(5);
+                contaRegras++;
+            }
+        }
+    }
+
+    /// Implementar -- Função que checa se o simbolo inicial digitado está correto para as regras inseridas
     private boolean raizCheck() {
 
         return true;
