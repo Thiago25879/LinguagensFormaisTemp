@@ -40,10 +40,10 @@ public class Classe {
     //{S -> AA, S -> BA, A -> AB|BA|SA}
     private boolean padraoRegras() {       // Padrão esperado para as regras inseridas
         boolean test = true;
+        ArrayList<String> lista = new ArrayList();
         if (!checkRegrasSimb()) {
             return false;
         }
-        ArrayList<String> lista = new ArrayList();
         while (test) {
             test = false;
             for (String regra : regras) {
@@ -59,11 +59,9 @@ public class Classe {
         matriz = new String[lista.size()][2];
         regras = lista;
         matrizAdd();
-
         return true;
     }
-    // Kelvin | 06:00 - 06:20
-
+    // Kelvin 24/09 | 06:00 - 06:20
     private boolean checkRegrasSimb() { //Checa se as regras digitadas fazem sentido para os terminais/simbolos inseridos
         for (String regra : regras) {
             for (int x = 0; x < regra.length(); x++) {
@@ -75,8 +73,7 @@ public class Classe {
         }
         return true;
     }
-
-    // Kelvin | 06:00 - 06:20
+    // Kelvin 24/09 | 06:00 - 06:20
     private void matrizAdd() { //Só adiciona à matriz regras que não façam referência a si mesma, como por exemplo C->C
         int contaRegras = 0;
         for (String regra : regras) {
