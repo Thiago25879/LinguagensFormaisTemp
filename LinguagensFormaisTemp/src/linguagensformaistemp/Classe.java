@@ -14,11 +14,11 @@ import java.util.List;
  */
 public class Classe {
 
-    private ArrayList<Character> variaveis;
-    private ArrayList<Character> terminais;
-    private ArrayList<String> regras;
-    private char raiz;
-    private String matriz[][];
+    private ArrayList<Character> variaveis;   // "Variáveis" contêm terminais e variáveis | todas as variáveis e terminais que o usuário digitou
+    private ArrayList<Character> terminais;   // "Terminais" contêm todos os simbolos terminais descritos pelo usuário | Todos os simbolos terminais digitados pelo usuário
+    private ArrayList<String> regras;         // "Regras" Contêm uma lista de todas as regras do usuário, dividindo elas por posição da lista
+    private char raiz;                        // "Raiz" é equivalente ao "Símbolo terminal", também enviado pelo usuário, o simbolo terminal é a "raiz" da gramática, podendo destrinchar em todos os terminais
+    private String matriz[][];                // 
 
     public Classe(ArrayList<Character> variaveis, ArrayList<Character> terminais, ArrayList<String> regras, char raiz) {
         this.variaveis = variaveis;
@@ -55,7 +55,8 @@ public class Classe {
             for (String regra : regras) {
                 if (regra.contains("|")) {
                     lista.add(regra.trim().substring(0, regra.indexOf("|")));
-                    regra.replace(regra.trim().substring(5, regra.indexOf("|") + 1), "");
+                    regras.set(regras.indexOf(regra),regra.replace(regra.trim().substring(5, regra.indexOf("|") + 1), ""));
+                    
                     test = true;
                 }
             }
