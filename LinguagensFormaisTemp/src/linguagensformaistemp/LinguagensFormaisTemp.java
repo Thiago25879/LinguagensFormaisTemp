@@ -15,10 +15,15 @@ public class LinguagensFormaisTemp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Teste");
-        System.out.println("TestBranch");
+        char test = '/';
+        System.out.println(test);
+        System.out.println("TestBranch".substring(0, 1));
+        String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+        for (String i : cars) {
+            i = i.concat("asdsadsad");
+            System.out.println(cars[0]);
+        }
     }
-    
+
     //Essa classe ficou completa - Thiago
-    
 }
