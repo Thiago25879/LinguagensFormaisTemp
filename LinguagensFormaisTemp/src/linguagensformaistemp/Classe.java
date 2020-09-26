@@ -61,7 +61,8 @@ public class Classe {
         matrizAdd();
         return true;
     }
-    // Kelvin 24/09 | 06:00 - 06:20
+    // Refatorado por Kelvin 24/09 | 06:00 - 06:20
+        // Lógica por Thiago
     private boolean checkRegrasSimb() { //Checa se as regras digitadas fazem sentido para os terminais/simbolos inseridos
         for (String regra : regras) {
             for (int x = 0; x < regra.length(); x++) {
@@ -73,7 +74,8 @@ public class Classe {
         }
         return true;
     }
-    // Kelvin 24/09 | 06:00 - 06:20
+    // Refatorado por Kelvin 24/09 | 06:00 - 06:20
+        // Lógica por Thiago
     private void matrizAdd() { //Só adiciona à matriz regras que não façam referência a si mesma, como por exemplo C->C
         int contaRegras = 0;
         for (String regra : regras) {
