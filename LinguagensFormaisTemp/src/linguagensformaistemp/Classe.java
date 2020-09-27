@@ -28,33 +28,33 @@ public class Classe {
             }
         }
         if (!check) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
-            System.out.println("Entrada inválida");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+            System.out.println("Os terminais não estão nas variáveis");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
         } else {
-            System.out.println("Passou de boas");
+            System.out.println("Checagem completa");
         }
 
         if (!variaveis.contains(raiz)) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
-            System.out.println("Deu ruim 1");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+            System.out.println("Raiz não está presente entre as variáveis");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
         } else {
-            System.out.println("deu bom 1");
+            System.out.println("Checagem completa");
         }
 
         if (terminais.contains(raiz)) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
-            System.out.println("Deu ruim 2");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+            System.out.println("Raiz usada é um dos terminais");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
         } else {
-            System.out.println("deu bom 2");
+            System.out.println("Checagem completa");
         }
 
         if (!padraoRegras()) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
-            System.out.println("Deu ruim 3");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+            System.out.println("Regras estão mal formatadas");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
         } else {
-            System.out.println("deu bom 3");
+            System.out.println("Checagem completa");
         }
 
         if (!raizCheck()) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
-            System.out.println("Deu ruim 4");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+            System.out.println("Raiz não consegue chegar a todos as variáveis");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
         } else {
-            System.out.println("deu bom 4");
+            System.out.println("Checagem completa");
         }
     }
 
@@ -90,7 +90,7 @@ public class Classe {
         for (String regra : regras) {
             for (int x = 0; x < regra.length(); x++) {
                 regra = regra.replaceAll(" ", "").replaceAll("->", "").replaceAll("|", "");
-                if (!variaveis.contains(regra.charAt(x))) {
+                if (!(variaveis.contains(regra.charAt(x)) || terminais.contains(regra.charAt(x)))) {
                     return false;
                 }
             }
@@ -126,10 +126,10 @@ public class Classe {
         while (x < matriz.length) {
             y = 0;
             while (y < matriz.length) {
-                if (confirma.get(y) == 1) {
-                    for (String cada : matriz[x][1].split("")) {
-                        if (variaveis.contains(cada)) {
-                            confirma.set(variaveis.indexOf(cada), 1);
+                if (confirma.get(variaveis.indexOf((matriz[y][0].charAt(0)))) == 1) {
+                    for (String cada : matriz[y][1].split("")) {
+                        if (variaveis.contains(cada.charAt(0))) {
+                            confirma.set(variaveis.indexOf(cada.charAt(0)), 1);
                         }
                     }
                 }
