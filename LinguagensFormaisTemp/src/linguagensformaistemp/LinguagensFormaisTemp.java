@@ -15,14 +15,8 @@ public class LinguagensFormaisTemp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        char test = '/';
-        System.out.println(test);
-        System.out.println("TestBranch".substring(0, 1));
-        String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
-        for (String i : cars) {
-            i = i.concat("asdsadsad");
-            System.out.println(cars[0]);
-        }
+      int matriz[][] = new int[2][4];  
+        System.out.println(matriz[0].length);
     }
 
     //Essa classe ficou completa - Thiago
