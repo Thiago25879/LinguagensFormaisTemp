@@ -1,43 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package linguagensformaistemp;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author thiag
- */
 public class Classe {
 
     private ArrayList<Character> variaveis;   // "Variáveis" contêm terminais e variáveis | todas as variáveis e terminais que o usuário digitou
     private ArrayList<Character> terminais;   // "Terminais" contêm todos os simbolos terminais descritos pelo usuário | Todos os simbolos terminais digitados pelo usuário
     private ArrayList<String> regras;         // "Regras" Contêm uma lista de todas as regras do usuário, dividindo elas por posição da lista
-    private Character raiz;                        // "Raiz" é equivalente ao "Símbolo terminal", também enviado pelo usuário, o simbolo terminal é a "raiz" da gramática, podendo destrinchar em todos os terminais
+    private Character raiz;                   // "Raiz" é equivalente ao "Símbolo terminal", também enviado pelo usuário, o simbolo terminal é a "raiz" da gramática, podendo destrinchar em todos os terminais
     private String matriz[][];                // Local que será utilizado para salvar as regras, basicamente uma formatação das regras recebidas pela lista de string em um formato utilizável
 
     public Classe(ArrayList<Character> variaveis, ArrayList<Character> terminais, ArrayList<String> regras, char raiz) throws Exception {
-        this.variaveis = variaveis;     //seta variaveis
-        this.terminais = terminais;     // seta terminais
-        this.regras = regras;           // seta regras
-        this.raiz = raiz;               // seta raiz
-        boolean check = true;           // variável auxiliar de teste
-        for (Character temp : terminais) {   //Vai checar se os terminais não estão contidos nas variáveis
+        this.variaveis = variaveis;             // seta variaveis
+        this.terminais = terminais;             // seta terminais
+        this.regras = regras;                   // seta regras
+        this.raiz = raiz;                       // seta raiz
+        boolean check = true;                   // variável auxiliar de teste
+        for (Character temp : terminais) {      // Vai checar se os terminais não estão contidos nas variáveis
             if (!variaveis.contains(temp)) {
                 check = false;
             }
         }
-        for (int x = variaveis.size() - 1; x > 0; x--) { //Remove todos os terminais repetidos de variaveis
+        for (int x = variaveis.size() - 1; x > 0; x--) { // Remove todos os terminais repetidos de variaveis
             if (terminais.contains(variaveis.get(x))) {
                 variaveis.remove(x);
             }
         }
-        if (!check || !variaveis.contains(raiz) || terminais.contains(raiz) || !padraoRegras() || !raizCheck()) { //Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
-            throw new IllegalArgumentException("Entrada inválida");                               //terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+        if (!check || !variaveis.contains(raiz) || terminais.contains(raiz) || !padraoRegras() || !raizCheck()) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
+            throw new IllegalArgumentException("Entrada inválida");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
         }else{
             throw new Exception("Passou de boas");
         }
