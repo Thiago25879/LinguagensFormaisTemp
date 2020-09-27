@@ -27,10 +27,34 @@ public class Classe {
                 variaveis.remove(x);
             }
         }
-        if (!check || !variaveis.contains(raiz) || terminais.contains(raiz) || !padraoRegras() || !raizCheck()) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
-            throw new IllegalArgumentException("Entrada inválida");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
-        }else{
-            throw new Exception("Passou de boas");
+        if (!check) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
+            System.out.println("Entrada inválida");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+        } else {
+            System.out.println("Passou de boas");
+        }
+
+        if (!variaveis.contains(raiz)) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
+            System.out.println("Deu ruim 1");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+        } else {
+            System.out.println("deu bom 1");
+        }
+
+        if (terminais.contains(raiz)) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
+            System.out.println("Deu ruim 2");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+        } else {
+            System.out.println("deu bom 2");
+        }
+
+        if (!padraoRegras()) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
+            System.out.println("Deu ruim 3");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+        } else {
+            System.out.println("deu bom 3");
+        }
+
+        if (!raizCheck()) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
+            System.out.println("Deu ruim 4");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+        } else {
+            System.out.println("deu bom 4");
         }
     }
 
