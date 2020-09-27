@@ -29,33 +29,26 @@ public class Classe {
         }
         if (!check) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
             System.out.println("Os terminais não estão nas variáveis");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
-        } else {
-            System.out.println("Checagem completa");
         }
 
         if (!variaveis.contains(raiz)) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
             System.out.println("Raiz não está presente entre as variáveis");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
-        } else {
-            System.out.println("Checagem completa");
         }
 
         if (terminais.contains(raiz)) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
             System.out.println("Raiz usada é um dos terminais");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
-        } else {
-            System.out.println("Checagem completa");
         }
 
         if (!padraoRegras()) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
             System.out.println("Regras estão mal formatadas");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
-        } else {
-            System.out.println("Checagem completa");
         }
 
         if (!raizCheck()) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
             System.out.println("Raiz não consegue chegar a todos as variáveis");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
-        } else {
-            System.out.println("Checagem completa");
         }
+
+        System.out.println("Checagem completa");
+
     }
 
     //Feito por Thiago e Kelvin - 24/09 | 02:00 - 04:00
