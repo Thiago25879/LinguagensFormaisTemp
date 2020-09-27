@@ -1,7 +1,9 @@
 package linguagensformaistemp;
 
 import java.util.ArrayList;
-import java.util.List;
+
+
+// Revisado por Thiago,Charles,Pedro, Kelvin e Ritiele - 27/09 | 20:00 - 20:45
 
 public class Classe {
 
@@ -9,7 +11,7 @@ public class Classe {
     private ArrayList<Character> terminais;   // "Terminais" contêm todos os simbolos terminais descritos pelo usuário | Todos os simbolos terminais digitados pelo usuário
     private ArrayList<String> regras;         // "Regras" Contêm uma lista de todas as regras do usuário, dividindo elas por posição da lista
     private Character raiz;                   // "Raiz" é equivalente ao "Símbolo terminal", também enviado pelo usuário, o simbolo terminal é a "raiz" da gramática, podendo destrinchar em todos os terminais
-    private String matriz[][];                // Local que será utilizado para salvar as regras, basicamente uma formatação das regras recebidas pela lista de string em um formato utilizável
+    private String[][] regrasMatriz;          // Local que será utilizado para salvar as regras, basicamente uma formatação das regras recebidas pela lista de string em um formato utilizável
 
     public Classe(ArrayList<Character> variaveis, ArrayList<Character> terminais, ArrayList<String> regras, char raiz) throws Exception {
         this.variaveis = variaveis;             // seta variaveis
@@ -17,7 +19,7 @@ public class Classe {
         this.regras = regras;                   // seta regras
         this.raiz = raiz;                       // seta raiz
         boolean check = true;                   // variável auxiliar de teste
-        for (Character temp : terminais) {      // Vai checar se os terminais não estão contidos nas variáveis
+        for (Character temp : terminais) {      // Vai checar se os terminais estão contidos nas variáveis
             if (!variaveis.contains(temp)) {
                 check = false;
             }
@@ -27,24 +29,29 @@ public class Classe {
                 variaveis.remove(x);
             }
         }
-        if (!check) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
+        if (!check) {   // Caso, 'check' seja falso, terminais não estavam contidos nas variáveis.
             System.out.println("Os terminais não estão nas variáveis");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+            return;
         }
 
         if (!variaveis.contains(raiz)) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
             System.out.println("Raiz não está presente entre as variáveis");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+            return;
         }
 
         if (terminais.contains(raiz)) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
             System.out.println("Raiz usada é um dos terminais");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+            return;
         }
 
         if (!padraoRegras()) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
             System.out.println("Regras estão mal formatadas");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+            return;
         }
 
         if (!raizCheck()) {   // Caso, 'check' seja falso,"variáveis" não contiverem o "simbolo terminal",
             System.out.println("Raiz não consegue chegar a todos as variáveis");                                                 // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
+            return;
         }
 
         System.out.println("Checagem completa");
@@ -52,7 +59,7 @@ public class Classe {
     }
 
     //Feito por Thiago e Kelvin - 24/09 | 02:00 - 04:00
-    //{S -> AA, S -> BA, A -> AB|BA|SA}
+    //{S -> AA, S -> BA, A -> ABA|BA|SA}
     private boolean padraoRegras() {       // Padrão esperado para as regras inseridas
         boolean test = true;
         ArrayList<String> lista = new ArrayList();
@@ -71,7 +78,7 @@ public class Classe {
         }
         lista.addAll(regras);
         lista.sort(String.CASE_INSENSITIVE_ORDER);
-        matriz = new String[lista.size()][2];
+        regrasMatriz = new String[lista.size()][2];
         regras = lista;
         matrizAdd();
         return true;
@@ -93,12 +100,12 @@ public class Classe {
 
     // Refatorado por Kelvin 24/09 | 06:00 - 06:20
     // Lógica por Thiago
-    private void matrizAdd() { //Só adiciona à matriz regras que não façam referência a si mesma, como por exemplo C->C
+    private void matrizAdd() { //Só adiciona à regrasMatriz regras que não façam referência a si mesma, como por exemplo C->C
         int contaRegras = 0;
         for (String regra : regras) {
             if (regra.trim().substring(0, 1) != regra.trim().substring(5)) {
-                matriz[contaRegras][0] = regra.trim().substring(0, 1);
-                matriz[contaRegras][1] = regra.trim().substring(5);
+                regrasMatriz[contaRegras][0] = regra.trim().substring(0, 1);
+                regrasMatriz[contaRegras][1] = regra.trim().substring(5);
                 contaRegras++;
             }
         }
@@ -116,11 +123,11 @@ public class Classe {
                 confirma.add(0);
             }
         }
-        while (x < matriz.length) {
+        while (x < regrasMatriz.length) {
             y = 0;
-            while (y < matriz.length) {
-                if (confirma.get(variaveis.indexOf((matriz[y][0].charAt(0)))) == 1) {
-                    for (String cada : matriz[y][1].split("")) {
+            while (y < regrasMatriz.length) {
+                if (confirma.get(variaveis.indexOf((regrasMatriz[y][0].charAt(0)))) == 1) {
+                    for (String cada : regrasMatriz[y][1].split("")) {
                         if (variaveis.contains(cada.charAt(0))) {
                             confirma.set(variaveis.indexOf(cada.charAt(0)), 1);
                         }
@@ -135,5 +142,7 @@ public class Classe {
         } else {
             return true;
         }
-    }
+    }         
 }
+// Implementar uma função que mostre o processo de derivação até a expressão/string digitada pelo usuário, caso seja possível.
+    
