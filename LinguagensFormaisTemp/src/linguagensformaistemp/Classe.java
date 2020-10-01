@@ -2,9 +2,7 @@ package linguagensformaistemp;
 
 import java.util.ArrayList;
 
-
 // Revisado por Thiago,Charles,Pedro, Kelvin e Ritiele - 27/09 | 20:00 - 20:45
-
 public class Classe {
 
     private ArrayList<Character> variaveis;   // "Variáveis" contêm terminais e variáveis | todas as variáveis e terminais que o usuário digitou
@@ -142,7 +140,59 @@ public class Classe {
         } else {
             return true;
         }
-    }         
-}
+    }
+
 // Implementar uma função que mostre o processo de derivação até a expressão/string digitada pelo usuário, caso seja possível.
-    
+    public ArrayList derivar(String entrada) {
+        ArrayList<Integer> variacoes = new ArrayList();
+        ArrayList<String> retorno = new ArrayList();
+        String entradaLocal = entrada;
+        StringBuilder builder = new StringBuilder(entradaLocal);
+        int nivel = 0, inicio = 0, fim = inicio + 1, regra = 0;
+        for (String x : entrada.split("")) {
+            if (!terminais.contains(x.charAt(0))) {
+                return null;
+            }
+        }
+        while (nivel >= 0) {
+            for (; inicio < entradaLocal.length(); inicio++) {
+                for (; fim <= entradaLocal.length(); fim++) {
+                    regra = buscaRegra(entradaLocal.substring(inicio, fim), 0);
+                    if (regra != -1) {
+                        variacoes.add(inicio);
+                        variacoes.add(fim);
+                        variacoes.add(regra);
+                        nivel++;
+                        builder.replace(inicio, fim, regrasMatriz[regra][0]);
+                        entradaLocal = builder.toString();
+                        retorno.add(entradaLocal);
+                        inicio = 0;
+                        fim = 1;
+                    }
+                }
+                fim = 0;
+            }
+            /*if(entradaLocal == raiz.toString()){
+                return retorno;
+            }*/
+            if (buscaRegra(entradaLocal, variacoes.get(variacoes.size()-1) + 1) == -1) {
+                nivel--;
+                retorno.remove(retorno.size() - 1);
+                entradaLocal = retorno.get(retorno.size() - 1);
+            }else{
+                //Tem mais conjuntos cuja regra pode ser convertida, essa parte do código é que vai testar os outros caminhos dessa silaba
+            }
+        }
+        return null;
+    }
+
+    private int buscaRegra(String parte, int inicioBusca) {
+        for (int x = inicioBusca; x < this.regrasMatriz.length; x++) {
+            if (parte == regrasMatriz[x][1]) {
+                return x;
+            }
+        }
+        return -1;
+    }
+
+}
