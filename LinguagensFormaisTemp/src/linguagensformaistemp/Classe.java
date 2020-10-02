@@ -147,6 +147,7 @@ public class Classe {
         ArrayList<Integer> variacoes = new ArrayList();
         ArrayList<String> retorno = new ArrayList();
         String entradaLocal = entrada;
+        boolean skip = false;
         StringBuilder builder = new StringBuilder(entradaLocal);
         int nivel = 0, inicio = 0, fim = inicio + 1, regra = 0;
         for (String x : entrada.split("")) {
@@ -157,38 +158,52 @@ public class Classe {
         while (nivel >= 0) {
             for (; inicio < entradaLocal.length(); inicio++) {
                 for (; fim <= entradaLocal.length(); fim++) {
-                    regra = buscaRegra(entradaLocal.substring(inicio, fim), 0);
-                    if (regra != -1) {
-                        variacoes.add(inicio);
-                        variacoes.add(fim);
-                        variacoes.add(regra);
-                        nivel++;
-                        builder.replace(inicio, fim, regrasMatriz[regra][0]);
-                        entradaLocal = builder.toString();
-                        retorno.add(entradaLocal);
-                        inicio = 0;
-                        fim = 1;
+                    if (skip) {
+                        skip = false;
+                    } else {
+                        regra = buscaRegra(entradaLocal.substring(inicio, fim), 0);
+                        if (regra != -1) {
+                            variacoes.add(inicio);
+                            variacoes.add(fim);
+                            variacoes.add(regra);
+                            nivel++;
+                            builder.replace(inicio, fim, regrasMatriz[regra][0]);
+                            entradaLocal = builder.toString();
+                            retorno.add(entradaLocal);
+                            inicio = 0;
+                            fim = 1;
+                            System.out.println(entradaLocal);
+                        }
                     }
                 }
-                fim = 0;
+                fim = inicio + 1;
             }
-            /*if(entradaLocal == raiz.toString()){
+            if (entradaLocal.equals(raiz.toString())) {
+
+                for (String linha : retorno) {
+                    System.out.println(linha);
+                }
                 return retorno;
-            }*/
-            if (buscaRegra(entradaLocal, variacoes.get(variacoes.size()-1) + 1) == -1) {
-                nivel--;
-                retorno.remove(retorno.size() - 1);
-                entradaLocal = retorno.get(retorno.size() - 1);
-            }else{
-                //Tem mais conjuntos cuja regra pode ser convertida, essa parte do código é que vai testar os outros caminhos dessa silaba
             }
+            //if (buscaRegra(entradaLocal, variacoes.get(variacoes.size() - 1) + 1) == -1) {
+            nivel--;
+            retorno.remove(retorno.size() - 1);
+            entradaLocal = retorno.get(retorno.size() - 1);
+            variacoes.remove(variacoes.size() - 1);
+            fim = variacoes.remove(variacoes.size() -1);
+            inicio = variacoes.remove(variacoes.size() -1);
+            skip = true;
+            builder = new StringBuilder(entradaLocal);
+            //} else {
+            //Tem mais conjuntos cuja regra pode ser convertida, essa parte do código é que vai testar os outros caminhos dessa silaba
+            //}*/
         }
         return null;
     }
 
     private int buscaRegra(String parte, int inicioBusca) {
         for (int x = inicioBusca; x < this.regrasMatriz.length; x++) {
-            if (parte == regrasMatriz[x][1]) {
+            if (parte.equals(regrasMatriz[x][1])) {
                 return x;
             }
         }

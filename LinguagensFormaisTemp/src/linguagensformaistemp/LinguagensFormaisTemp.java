@@ -45,7 +45,22 @@ public class LinguagensFormaisTemp {
         regras.add("I -> b");
         regras.add("I -> Ia");
         regras.add("I -> Ib");
+        
+        /*char raiz = 'S';
+        variaveis.add('S');
+        variaveis.add('A');
+        variaveis.add('a');
+        variaveis.add('b');
+        terminais.add('a');
+        terminais.add('b');
+        regras.add("S -> AA");
+        regras.add("A -> AAA");
+        regras.add("A -> bA");
+        regras.add("A -> Ab");
+        regras.add("A -> a");*/
         Classe teste = new Classe(variaveis,terminais,regras,raiz);
+        teste.derivar("aa*(a+ba)");
+        
         
     }
 
