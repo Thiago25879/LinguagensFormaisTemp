@@ -38,8 +38,8 @@ public class LinguagensFormaisTemp {
         terminais.add(')');
         
         regras.add("E -> I");
-        regras.add("E -> E * E");
-        regras.add("E -> E + E");
+        regras.add("E -> E*E");
+        regras.add("E -> E+E");
         regras.add("E -> (E)");
         regras.add("I -> a");
         regras.add("I -> b");

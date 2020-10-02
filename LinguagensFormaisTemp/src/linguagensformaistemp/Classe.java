@@ -60,7 +60,7 @@ public class Classe {
     //{S -> AA, S -> BA, A -> ABA|BA|SA}
     private boolean padraoRegras() {       // Padrão esperado para as regras inseridas
         boolean test = true;
-        ArrayList<String> lista = new ArrayList();
+        ArrayList<String> lista = new ArrayList<String>();
         if (!checkRegrasSimb()) {
             return false;
         }
@@ -112,7 +112,7 @@ public class Classe {
     // Feito por Thiago e Kelvin 26/09 | 21:30 - 22:40
     // Função que checa se o simbolo inicial digitado está correto para as regras inseridas
     private boolean raizCheck() {
-        ArrayList<Integer> confirma = new ArrayList();
+        ArrayList<Integer> confirma = new ArrayList<Integer>();
         int x = 0, y = 0;
         for (Character nope : variaveis) {
             if (nope.equals(raiz)) {
@@ -144,8 +144,9 @@ public class Classe {
 
 // Implementar uma função que mostre o processo de derivação até a expressão/string digitada pelo usuário, caso seja possível.
     public ArrayList derivar(String entrada) {
-        ArrayList<Integer> variacoes = new ArrayList();
-        ArrayList<String> retorno = new ArrayList();
+        ArrayList<Integer> variacoes = new ArrayList<Integer>();
+        ArrayList<String> retorno = new ArrayList<String>();
+        retorno.add(entrada);
         String entradaLocal = entrada;
         boolean skip = false;
         StringBuilder builder = new StringBuilder(entradaLocal);
@@ -171,32 +172,37 @@ public class Classe {
                             entradaLocal = builder.toString();
                             retorno.add(entradaLocal);
                             inicio = 0;
-                            fim = 1;
-                            System.out.println(entradaLocal);
+                            fim = 0;
+                            //System.out.println(entradaLocal);
                         }
                     }
                 }
                 fim = inicio + 1;
             }
             if (entradaLocal.equals(raiz.toString())) {
-
                 for (String linha : retorno) {
                     System.out.println(linha);
                 }
                 return retorno;
             }
-            //if (buscaRegra(entradaLocal, variacoes.get(variacoes.size() - 1) + 1) == -1) {
-            nivel--;
-            retorno.remove(retorno.size() - 1);
-            entradaLocal = retorno.get(retorno.size() - 1);
-            variacoes.remove(variacoes.size() - 1);
-            fim = variacoes.remove(variacoes.size() -1);
-            inicio = variacoes.remove(variacoes.size() -1);
-            skip = true;
-            builder = new StringBuilder(entradaLocal);
-            //} else {
-            //Tem mais conjuntos cuja regra pode ser convertida, essa parte do código é que vai testar os outros caminhos dessa silaba
-            //}*/
+            if (retorno.size() > 1) {
+                if (buscaRegra(entradaLocal, variacoes.get(variacoes.size() - 1) + 1) == -1) {
+                    nivel--;
+                    retorno.remove(retorno.size() - 1);
+                    entradaLocal = retorno.get(retorno.size() - 1);
+                    variacoes.remove(variacoes.size() - 1);
+                    fim = variacoes.remove(variacoes.size() - 1);
+                    inicio = variacoes.remove(variacoes.size() - 1);
+                    skip = true;
+                    builder = new StringBuilder(entradaLocal);
+                } else {
+                    //Tem mais conjuntos cuja regra pode ser convertida, essa parte do código é que vai testar os outros caminhos dessa silaba
+                    System.out.println("Achou outra regra");
+                }
+            }else{
+                nivel--;
+            }
+            
         }
         return null;
     }
