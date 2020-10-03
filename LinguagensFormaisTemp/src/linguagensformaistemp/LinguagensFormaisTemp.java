@@ -13,10 +13,8 @@ import java.util.ArrayList;
  */
 public class LinguagensFormaisTemp {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws Exception {
+        
         ArrayList<Character> variaveis = new ArrayList();
         ArrayList<Character> terminais = new ArrayList();
         ArrayList<String> regras = new ArrayList();
@@ -25,6 +23,7 @@ public class LinguagensFormaisTemp {
         variaveis.add('I');
         variaveis.add('a');
         variaveis.add('b');
+        variaveis.add('c');
         variaveis.add('+');
         variaveis.add('*');
         variaveis.add('(');
@@ -32,6 +31,7 @@ public class LinguagensFormaisTemp {
         
         terminais.add('a');
         terminais.add('b');
+        terminais.add('c');
         terminais.add('+');
         terminais.add('*');
         terminais.add('(');
@@ -41,10 +41,13 @@ public class LinguagensFormaisTemp {
         regras.add("E -> E*E");
         regras.add("E -> E+E");
         regras.add("E -> (E)");
+        regras.add("E -> a");
+        regras.add("E -> c");
         regras.add("I -> a");
         regras.add("I -> b");
         regras.add("I -> Ia");
         regras.add("I -> Ib");
+        
         
         /*char raiz = 'S';
         variaveis.add('S');
@@ -59,7 +62,9 @@ public class LinguagensFormaisTemp {
         regras.add("A -> Ab");
         regras.add("A -> a");*/
         Classe teste = new Classe(variaveis,terminais,regras,raiz);
-        teste.derivar("aa*(a+ba)");
+        teste.derivar("aa*a+c");
+        // E -> E*E | E*E - > I*E+E | I*E+E - > Ia*a+c | Ia*a+c - > aa*a+c
+        System.out.println(teste.toString());
         
         
     }
