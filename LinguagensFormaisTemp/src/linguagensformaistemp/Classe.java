@@ -171,9 +171,9 @@ public class Classe {
                             builder.replace(inicio, fim, regrasMatriz[regra][0]);
                             entradaLocal = builder.toString();
                             retorno.add(entradaLocal);
+                            System.out.println(entradaLocal + "- Inicio:" + inicio + " Fim: " + fim + " Nível: " + nivel);
                             inicio = 0;
                             fim = 0;
-                            //System.out.println(entradaLocal);
                         }
                     }
                 }
