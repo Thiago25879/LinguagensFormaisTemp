@@ -28,8 +28,6 @@ public class LinguagensFormaisTemp {
         variaveis.add('*');
         variaveis.add('(');
         variaveis.add(')');
-        variaveis.add('1');
-        variaveis.add('0');
         
         terminais.add('a');
         terminais.add('b');
@@ -38,12 +36,9 @@ public class LinguagensFormaisTemp {
         terminais.add('*');
         terminais.add('(');
         terminais.add(')');
-        terminais.add('1');
-        terminais.add('0');
         
-        regras.add("E -> I");
-        regras.add("E -> E*E");
-        regras.add("E -> E+E");
+        regras.add("E -> I|E*E");
+        regras.add("E -> E + E");
         regras.add("E -> (E)");
         regras.add("E -> a");
         regras.add("E -> c");
@@ -51,8 +46,7 @@ public class LinguagensFormaisTemp {
         regras.add("I -> b");
         regras.add("I -> Ia");
         regras.add("I -> Ib");
-        regras.add("I -> I0");
-        regras.add("I -> I1");
+        
         
         /*char raiz = 'S';
         variaveis.add('S');
@@ -67,7 +61,9 @@ public class LinguagensFormaisTemp {
         regras.add("A -> Ab");
         regras.add("A -> a");*/
         Classe teste = new Classe(variaveis,terminais,regras,raiz);
-        teste.derivar("(a+b)(a+b+a0+b1)");
+        teste.derivar("aa*a+c");
+        // E -> E*E | E*E - > I*E+E | I*E+E - > Ia*a+c | Ia*a+c - > aa*a+c
+        System.out.println(teste.toString());
         
         
     }

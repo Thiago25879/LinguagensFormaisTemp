@@ -11,7 +11,6 @@ public class Classe {
     private Character raiz;                   // "Raiz" é equivalente ao "Símbolo terminal", também enviado pelo usuário, o simbolo terminal é a "raiz" da gramática, podendo destrinchar em todos os terminais
     private String[][] regrasMatriz;          // Local que será utilizado para salvar as regras, basicamente uma formatação das regras recebidas pela lista de string em um formato utilizável
 
-
     public Classe(ArrayList<Character> variaveis, ArrayList<Character> terminais, ArrayList<String> regras, char raiz) throws Exception {
         this.variaveis = variaveis;             // seta variaveis
         this.terminais = terminais;             // seta terminais
@@ -87,8 +86,8 @@ public class Classe {
     // Lógica por Thiago
     private boolean checkRegrasSimb() { //Checa se as regras digitadas fazem sentido para os terminais/simbolos inseridos
         for (String regra : regras) {
-            for (int x = 0; x < regra.length(); x++) {
-                regra = regra.replaceAll(" ", "").replaceAll("->", "").replaceAll("|", "");
+            regra = regra.replaceAll(" ", "").replaceAll("->", "").replaceAll("\\|", "");
+            for (int x = 0; x < regra.length(); x++) {                
                 if (!(variaveis.contains(regra.charAt(x)) || terminais.contains(regra.charAt(x)))) {
                     return false;
                 }
@@ -104,7 +103,7 @@ public class Classe {
         for (String regra : regras) {
             if (regra.trim().substring(0, 1) != regra.trim().substring(5)) {
                 regrasMatriz[contaRegras][0] = regra.trim().substring(0, 1);
-                regrasMatriz[contaRegras][1] = regra.trim().substring(5);
+                regrasMatriz[contaRegras][1] = regra.trim().substring(5).replaceAll(" ", "");
                 contaRegras++;
             }
         }
@@ -151,7 +150,7 @@ public class Classe {
         String entradaLocal = entrada;
         boolean skip = false;
         StringBuilder builder = new StringBuilder(entradaLocal);
-        int nivel = 0, inicio = 0, fim = inicio + 1, regra = 0;
+        int nivel = 0, inicio = 0, fim = inicio + 1, regra = 0, novaRegra = 0;
         for (String x : entrada.split("")) {
             if (!terminais.contains(x.charAt(0))) {
                 return null;
@@ -163,7 +162,7 @@ public class Classe {
                     if (skip) {
                         skip = false;
                     } else {
-                        regra = buscaRegra(entradaLocal.substring(inicio, fim), 0);
+                        regra = buscaRegra(entradaLocal.substring(inicio, fim), novaRegra);
                         if (regra != -1) {
                             variacoes.add(inicio);
                             variacoes.add(fim);
@@ -172,9 +171,9 @@ public class Classe {
                             builder.replace(inicio, fim, regrasMatriz[regra][0]);
                             entradaLocal = builder.toString();
                             retorno.add(entradaLocal);
-                            System.out.println(entradaLocal + "- Inicio:" + inicio + " Fim: " + fim + " Nível: " + nivel);
                             inicio = 0;
                             fim = 0;
+                            //System.out.println(entradaLocal);
                         }
                     }
                 }
@@ -187,26 +186,28 @@ public class Classe {
                 return retorno;
             }
             if (retorno.size() > 1) {
-                if (buscaRegra(entradaLocal, variacoes.get(variacoes.size() - 1) + 1) == -1) {
-                    nivel--;
-                    retorno.remove(retorno.size() - 1);
-                    entradaLocal = retorno.get(retorno.size() - 1);
-                    variacoes.remove(variacoes.size() - 1);
-                    fim = variacoes.remove(variacoes.size() - 1);
-                    inicio = variacoes.remove(variacoes.size() - 1);
+                nivel--;
+                retorno.remove(retorno.size() - 1);
+                entradaLocal = retorno.get(retorno.size() - 1);
+                fim = variacoes.remove(variacoes.size() - 2);
+                inicio = variacoes.remove(variacoes.size() - 2);
+                if (buscaRegra(entradaLocal.substring(inicio,fim), variacoes.get(variacoes.size() - 1) + 1) == -1) {
                     skip = true;
-                    builder = new StringBuilder(entradaLocal);
+                    novaRegra = 0;
                 } else {
                     //Tem mais conjuntos cuja regra pode ser convertida, essa parte do código é que vai testar os outros caminhos dessa silaba
-                    System.out.println("Achou outra regra");
+                    //System.out.println("Achou outra regra");
+                    novaRegra = variacoes.get(variacoes.size() - 1) + 1;
                 }
-            }else{
+                variacoes.remove(variacoes.size() - 1);
+                builder = new StringBuilder(entradaLocal);
+            } else {
                 nivel--;
             }
-            
+
         }
-        
-       return null;
+
+        return null;
     }
 
     private int buscaRegra(String parte, int inicioBusca) {
@@ -217,12 +218,12 @@ public class Classe {
         }
         return -1;
     }
-    
-    
+
     // Kelvin Clovis (Setters e Getters) - 03/10  | 14:50-15:00 
-       public ArrayList<Character> getVariaveis() {
+    public ArrayList<Character> getVariaveis() {
         return variaveis;
     }
+
     public void setVariaveis(ArrayList<Character> variaveis) {
         this.variaveis = variaveis;
     }
@@ -258,9 +259,9 @@ public class Classe {
     public void setRegrasMatriz(String[][] regrasMatriz) {
         this.regrasMatriz = regrasMatriz;
     }
-    
-    public String toString(){
-        return("Terminais: " + getTerminais()+ "\n" + "Variáveis: " + getVariaveis() + "\n" + "Símbolo inicial: " + getRaiz() + "\n" + "Regras: " + getRegras());
+
+    public String toString() {
+        return ("Terminais: " + getTerminais() + "\n" + "Variáveis: " + getVariaveis() + "\n" + "Símbolo inicial: " + getRaiz() + "\n" + "Regras: " + getRegras());
     }
 
 }
