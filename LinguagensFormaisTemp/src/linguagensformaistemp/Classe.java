@@ -11,6 +11,7 @@ public class Classe {
     private Character raiz;                   // "Raiz" é equivalente ao "Símbolo terminal", também enviado pelo usuário, o simbolo terminal é a "raiz" da gramática, podendo destrinchar em todos os terminais
     private String[][] regrasMatriz;          // Local que será utilizado para salvar as regras, basicamente uma formatação das regras recebidas pela lista de string em um formato utilizável
 
+
     public Classe(ArrayList<Character> variaveis, ArrayList<Character> terminais, ArrayList<String> regras, char raiz) throws Exception {
         this.variaveis = variaveis;             // seta variaveis
         this.terminais = terminais;             // seta terminais
@@ -204,7 +205,8 @@ public class Classe {
             }
             
         }
-        return null;
+        
+       return null;
     }
 
     private int buscaRegra(String parte, int inicioBusca) {
@@ -214,6 +216,51 @@ public class Classe {
             }
         }
         return -1;
+    }
+    
+    
+    // Kelvin Clovis (Setters e Getters) - 03/10  | 14:50-15:00 
+       public ArrayList<Character> getVariaveis() {
+        return variaveis;
+    }
+    public void setVariaveis(ArrayList<Character> variaveis) {
+        this.variaveis = variaveis;
+    }
+
+    public ArrayList<Character> getTerminais() {
+        return terminais;
+    }
+
+    public void setTerminais(ArrayList<Character> terminais) {
+        this.terminais = terminais;
+    }
+
+    public ArrayList<String> getRegras() {
+        return regras;
+    }
+
+    public void setRegras(ArrayList<String> regras) {
+        this.regras = regras;
+    }
+
+    public Character getRaiz() {
+        return raiz;
+    }
+
+    public void setRaiz(Character raiz) {
+        this.raiz = raiz;
+    }
+
+    public String[][] getRegrasMatriz() {
+        return regrasMatriz;
+    }
+
+    public void setRegrasMatriz(String[][] regrasMatriz) {
+        this.regrasMatriz = regrasMatriz;
+    }
+    
+    public String toString(){
+        return("Terminais: " + getTerminais()+ "\n" + "Variáveis: " + getVariaveis() + "\n" + "Símbolo inicial: " + getRaiz() + "\n" + "Regras: " + getRegras());
     }
 
 }
