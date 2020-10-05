@@ -51,7 +51,7 @@ public class LinguagensFormaisTemp {
         regras.add("A -> bA");
         regras.add("A -> Ab");
         regras.add("A -> a");*/
-        Classe teste = new Classe(variaveis,terminais,regras,raiz);
+        GLC teste = new GLC(variaveis,terminais,regras,raiz);
         teste.derivar("aa*a+c");
         // E -> E*E | E*E - > I*E+E | I*E+E - > Ia*a+c | Ia*a+c - > aa*a+c
         System.out.println(teste.toString());

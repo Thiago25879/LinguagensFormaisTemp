@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 // Revisado por Thiago,Charles,Pedro, Kelvin e Ritiele - 27/09 | 20:00 - 20:45
 // Parcialmente comentado por Pedro - 04/10 - 15:30 - 19:20
-public class Classe {
+public class GLC {
 
     private ArrayList<Character> variaveis;   // "Variáveis" contêm terminais e variáveis | todas as variáveis e terminais que o usuário digitou
     private ArrayList<Character> terminais;   // "Terminais" contêm todos os simbolos terminais descritos pelo usuário | Todos os simbolos terminais digitados pelo usuário
@@ -18,7 +18,7 @@ public class Classe {
 	Se não fizer sentido, o usuário será notificado qual foi o problema econtrado na expressão. Caso contrário, o fluxo do programa terá continuidade.
 	*/
 	
-    public Classe(ArrayList<Character> variaveis, ArrayList<Character> terminais, ArrayList<String> regras, char raiz) throws Exception {
+    public GLC(ArrayList<Character> variaveis, ArrayList<Character> terminais, ArrayList<String> regras, char raiz) throws Exception {
         this.variaveis = variaveis;             // seta variaveis
         this.terminais = terminais;             // seta terminais
         this.regras = regras;                   // seta regras
